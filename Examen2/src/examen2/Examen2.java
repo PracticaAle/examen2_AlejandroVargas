@@ -39,18 +39,22 @@ public class Examen2 {
                     break;
                 case 2:
 //                    GestionTalonario.galloTapado(boletos);
+                        JOptionPane.showMessageDialog(null, "Hay codigo comentado del intento de hacer el modulo jaja");
                     break;
                 case 3:
                     GestionTalonario.mostrarEstado(boletos);
                         
                     break;
                 case 4:
+                    GestionTalonario.consultaComprador(boletos);
 
                     break;
                 case 5:
+                    GestionTalonario.estadisticaRecaudacion(boletos);
 
                     break;
                 case 6:
+                    GestionTalonario.sorteo(boletos);
 
                     break;
               

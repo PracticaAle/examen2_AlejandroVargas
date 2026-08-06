@@ -16,7 +16,7 @@ public class GestionTalonario {
     //Poner todos los tiquetes como disponibles
     public static void instanciarDefault(Boletos boletos[]) {
         for (int i = 0; i < boletos.length; i++) {
-            boletos[i] = new Boletos(EstadoNumeros.disponible);
+            boletos[i] = new Boletos(EstadoNumeros.disponible, null, 0, i);
         }
     }
 
@@ -70,12 +70,66 @@ public class GestionTalonario {
 //    }
 
     public static void mostrarEstado(Boletos boletos[]) {
-        String print="";
+        String print = "";
         for (int i = 0; i < boletos.length; i++) {
-            if(boletos[i].getComprador()!=null){
-                print+=boletos[i].toString()+"\n";
+            print += boletos[i].toString() + "\n";
+        }
+        JOptionPane.showMessageDialog(null, "Informacion de boletos \n" + print);
+    }
+
+    public static void consultaComprador(Boletos boletos[]) {
+        String comprador = JOptionPane.showInputDialog("Cual es el nombre del comprador: ");
+        for (int i = 0; i < boletos.length; i++) {
+            if (boletos[i].getComprador().equalsIgnoreCase(comprador)) {
+                JOptionPane.showMessageDialog(null, "numeros adquiridos por " + boletos[i].getComprador() + ": " + boletos[i].getNumero());
+            } else {
+                JOptionPane.showMessageDialog(null, "El comprador no tiene boletos");
             }
         }
-        JOptionPane.showMessageDialog(null, "Informacion de boletos \n"+print);
+    }
+    
+    public static void estadisticaRecaudacion(Boletos boletos[]) {
+        int cantidad = 0;
+        int disponibles = 0;
+        int dineroRecaudado = 0;
+
+        for (int i = 0; i < boletos.length; i++) {
+            if (boletos[i].getEstado() == boletos[i].getEstado().vendido) {
+                cantidad += 1;
+                dineroRecaudado += 2000;
+            } else if (boletos[i].getEstado() == boletos[i].getEstado().disponible) {
+                disponibles += 1;
+            }
+        }
+        float porcentaje = (cantidad / boletos.length) * 100;
+        JOptionPane.showMessageDialog(null, "Cantidad de boletos vendidos: " + cantidad + "\n"
+                + "Porcentaje (%) del talonario que se ha vendido " + porcentaje + "%\n"
+                + "Total de dinero recaudado en colones: " + dineroRecaudado + "₡");
+    }
+    public static void sorteo(Boletos boletos[]) {
+        String primer = "";
+        String segundo = "";
+        String tercero = "";
+
+        Random random = new Random();
+        int primero = random.nextInt(0, 100);
+        int segund = random.nextInt(0, 100);
+        int tercer = random.nextInt(0, 100);
+
+        for (int i = 0; i < boletos.length; i++) {
+            if (boletos[i].getComprador() != null) {
+                if (boletos[i].getNumero() == primero) {
+                    primer = boletos[i].getComprador();
+                } else if (boletos[i].getNumero() == segund) {
+                    segundo = boletos[i].getComprador();
+                } else if (boletos[i].getNumero() == tercer) {
+                    tercero = boletos[i].getComprador();
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(null, "primer lugar: "+primer + "\n" + "segundo lugar: " + segundo + "\n"+ "Tercer lugar: " + tercero);
+    
+
+
     }
 }
